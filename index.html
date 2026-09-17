@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bacon Browser GX</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/browser.js" defer></script>
+</head>
+<body data-theme="crimson">
+<header class="topbar">
+  <div class="brand">🥓 <b>BACON</b><span>BROWSER</span></div>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-page="home"><span>🥓 New Tab</span><i class="close-tab">×</i></button>
+  </div>
+  <button class="round" id="tabManagerBtn" title="Tab Manager">☷</button><button class="round" id="newTab">＋</button>
+</header>
+
+<div class="toolbar">
+  <button class="tool" id="back">←</button><button class="tool" id="forward">→</button>
+  <button class="tool" id="reload">↻</button><button class="tool" id="homeBtn">⌂</button>
+  <form id="addressForm" class="address"><span>🔎</span><input id="address" value="bacon://home" autocomplete="off"><select id="searchEngineSelect" class="search-engine-select"><option value="https://www.google.com/search?q=">Google</option><option value="https://www.bing.com/search?q=">Bing</option><option value="https://duckduckgo.com/?q=">DuckDuckGo</option><option value="https://search.yahoo.com/search?p=">Yahoo</option><option value="bacon">🥓 Bacon Search</option></select><button>GO</button></form>
+  <button class="tool" id="bookmarkBtn" title="Bookmark">☆</button><button class="tool account-top-btn" id="accountTopBtn" title="Bacon ID">👤</button><span id="accountBadge" class="account-badge">GUEST</span>
+  <button class="top-launch" type="button" data-page="ultimate">✦ OS</button>
+  <button class="top-launch" type="button" data-page="arcade">🕹 ARCADE</button>
+  <button class="top-launch fusion-top" type="button" data-page="dashboard">✦ FUSION</button>
+  <a class="clan" href="https://baconclan.pages.dev" target="_blank" rel="noopener">🥓 BACON CLAN ↗</a>
+</div>
+
+
+<div id="tabManagerPanel" class="tab-manager-panel">
+  <div class="tab-manager-head">
+    <div><span class="eyebrow">TAB CONTROL</span><h3>🗂️ Bacon Tabs</h3></div>
+    <button id="closeTabManager">×</button>
+  </div>
+  <div id="tabManagerList" class="tab-manager-list"></div>
+  <div class="tab-manager-actions">
+    <button id="restoreClosedTab">↩ Restore Closed</button>
+    <button id="closeOtherTabs">✕ Close Others</button>
+  </div>
+</div>
+
+<div class="shell">
+<aside class="sidebar">
+  <button class="side active" data-page="home"><strong>⌂</strong><label>Home</label></button>
+  <button class="side" data-page="games"><strong>🎮</strong><label>Gaming</label></button>
+  <button class="side" data-page="music"><strong>♫</strong><label>Music</label></button>
+  <button class="side" data-page="bookmarks"><strong>★</strong><label>Bookmarks</label></button>
+  <button class="side" data-page="history"><strong>◷</strong><label>History</label></button>
+  <button class="side" data-page="iframe"><strong>▣</strong><label>Web View</label></button>
+  <button class="side" data-page="account"><strong>👤</strong><label>Account</label></button>
+  <button class="side" data-page="settings"><strong>⚙</strong><label>Settings</label></button>
+  <button type="button" class="side ultimate-side" data-page="ultimate"><strong>✦</strong><label>Bacon OS</label></button>
+  <button type="button" class="side" data-page="arcade"><strong>🕹</strong><label>Arcade</label></button>
+  <button type="button" class="side v8-side" data-page="dashboard"><strong>✦</strong><label>Fusion</label></button>
+  <button type="button" class="side v8-side" data-page="tab-islands"><strong>🗂</strong><label>Islands</label></button>
+  <button type="button" class="side v8-side" data-page="gaming-hub"><strong>⚡</strong><label>Gaming 2.0</label></button>
+  <button type="button" class="side v8-side" data-page="music-studio"><strong>🎧</strong><label>Music 3.0</label></button>
+  <button type="button" class="side v8-side" data-page="power-deck"><strong>🧰</strong><label>Power Deck</label></button>
+  <button type="button" class="side v8-side" data-page="settings"><strong>🎨</strong><label>Appearance</label></button>
+  <div class="side-bottom">
+    <div class="mini-stat"><span>CPU</span><b id="cpu">12%</b></div>
+    <div class="mini-stat"><span>MEM</span><b id="mem">2.4 GB</b></div>
+  </div>
+
+<button class="nav-item" data-page="bookmarks">🔖 <span>Bookmarks</span></button>
+<button class="nav-item" data-page="history">🕘 <span>History</span></button>
+<button class="nav-item" data-page="privacy-center">🔒 <span>Private Bacon</span></button>
+<button class="nav-item" data-page="gaming-hub">🎮 <span>Gaming Hub+</span></button>
+<button class="nav-item" data-page="music-studio">🎵 <span>Bacon Music</span></button>
+<button class="nav-item" data-page="dashboard">🥓 <span>Bacon Clan</span></button>
+
+</aside>
+
+<div id="baconNotifications" class="bacon-notifications" aria-live="polite"></div>
+<main>
+<section class="page active" id="home">
+  <div class="hero">
+    <div class="eyebrow">BACON CLAN // BROWSER</div>
+    <h1>Browse.<br><span>Game.</span><br>Be Bacon.</h1>
+    <p>A ridiculously upgraded Bacon Browser shell with tabs, themes, bookmarks, history, gaming tools and a customizable control center.</p>
+    <div class="hero-actions"><a class="primary" href="https://baconclan.pages.dev" target="_blank" rel="noopener">OPEN BACON CLAN ↗</a></div>
+    <div class="status" id="status">● Systems ready</div>
+  </div>
+  <div class="section-title"><span>QUICK ACCESS</span><small>YOUR BROWSER, YOUR WAY</small></div>
+  <div class="cards">
+    <button class="feature" data-page="games"><em>🎮</em><b>Gaming Hub</b><small>Rivals • Roblox • tools</small></button>
+    <button class="feature" data-page="music"><em>🎵</em><b>Bacon Music</b><small>Player control center</small></button>
+    <button class="feature" data-page="settings"><em>🎨</em><b>Theme Lab</b><small>8 custom Bacon themes</small></button>
+    <button class="feature" data-page="settings"><em>⚙️</em><b>Turbo Mode</b><small>Browser performance controls</small></button>
+    <button class="feature" data-page="power-deck"><em>🧩</em><b>Power Deck</b><small>Extensions • downloads • DevTools</small></button>
+    <button class="feature" data-page="iframe"><em>🌐</em><b>Web View</b><small>Browse the web inside Bacon</small></button>
+  </div>
+  <div class="news">
+    <div><span>🥓</span><b>BACON CLAN</b><p>Your Bacon Browser is online.</p></div>
+    <a href="https://baconclan.pages.dev" target="_blank" rel="noopener">Visit site ↗</a>
+  </div>
+</section>
+
+<section class="page" id="games">
+  <div class="page-head"><div class="eyebrow">GAMING CENTER</div><h2>Level up your browser.</h2><p>Fast shortcuts and browser-side gaming controls.</p></div>
+  <div class="game-grid">
+    <a class="game-card big" href="https://www.roblox.com" target="_blank" rel="noopener"><span>🎮</span><b>Roblox</b><small>Open Roblox</small></a>
+    <a class="game-card" href="https://baconclan.pages.dev" target="_blank" rel="noopener"><span>🥓</span><b>Bacon Clan</b><small>Clan headquarters</small></a>
+    <button class="game-card" data-page="gaming-hub"><span>⚡</span><b>Gaming Mode</b><small>Optimize the browser shell</small></button>
+    <button class="game-card" id="focusMode"><span>🎯</span><b>Focus Mode</b><small>Hide distractions</small></button>
+  </div>
+  
+</section>
+
+<section class="page" id="music">
+  <div class="page-head"><div class="eyebrow">BACON PLAYER // LIVE AUDIO</div><h2>Music control center.</h2><p>Press play for a real browser-generated Bacon Beat, or load your own MP3/WAV/OGG file.</p></div>
+  <div class="player music-live-player">
+    <div class="album" id="albumArt">🥓</div>
+    <div class="track">
+      <small>NOW PLAYING • <span id="musicSourceLabel">BACON BEATS</span></small>
+      <h3 id="trackName">Bacon Beats — Midnight Sizzle</h3>
+      <div class="progress"><i id="progress"></i></div>
+      <div class="music-time"><span id="musicCurrentTime">0:00</span><span id="musicDuration">2:00</span></div>
+      <div class="player-buttons">
+        <button id="prev" title="Previous track">⏮</button>
+        <button class="play" id="play" title="Play / Pause">▶</button>
+        <button id="next" title="Next track">⏭</button>
+      </div>
+      <div class="music-extra-controls">
+        <label>🔊 <input id="mainMusicVolume" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+        <button class="secondary" id="musicUploadBtn">📁 Load My Music</button>
+        <input id="musicFileInput" type="file" accept="audio/*" hidden>
+      </div>
+      <div id="musicStatus" class="music-status">Ready — click ▶ to start the beat.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="bookmarks">
+  <div class="page-head"><div class="eyebrow">SAVED</div><h2>Bookmarks.</h2><p>Save the pages you use most.</p></div>
+  <div id="bookmarkList" class="list"></div>
+</section>
+
+<section class="page" id="history">
+  <div class="page-head"><div class="eyebrow">TIMELINE</div><h2>History.</h2><p>Your local Bacon Browser activity.</p></div>
+  <button class="secondary" id="clearHistory">Clear history</button>
+  <div id="historyList" class="list"></div>
+</section>
+
+
+<section class="page" id="iframe">
+  <div class="web-browser">
+    <div class="web-browser-head">
+      <div class="web-browser-title"><span class="live-dot"></span><span id="webViewTitle">BACON WEB VIEW</span></div>
+      <div class="web-browser-tools">
+        <button id="webBack">←</button><button id="webForward">→</button><button id="webReload">↻</button>
+        <button id="webPopout">↗</button><button id="webFullscreen">⛶</button>
+      </div>
+    </div>
+    <div class="web-browser-url">
+      <span>🔒</span><input id="iframeUrl" value="https://example.com"><button id="iframeGo">GO</button>
+    </div>
+    <div class="web-browser-body" id="webBrowserBody">
+      <div class="web-loading" id="webLoading"><div class="spinner"></div><b>Loading Bacon Web…</b><small>Some websites prevent iframe embedding. Use ↗ to open them normally.</small></div>
+      <iframe id="webFrame" title="Bacon Web View" src="https://example.com" allow="fullscreen; autoplay; clipboard-read; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <webview id="desktopWebFrame" title="Bacon Desktop Web View" src="https://example.com" allowfullscreen></webview>
+      <div class="web-blocked" id="webBlocked">
+        <div class="blocked-icon">🧱</div><h2>This site blocked embedded viewing</h2>
+        <p>The website's security policy does not allow it to be displayed inside another site.</p>
+        <button class="primary" id="webBlockedOpen">OPEN SITE</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="gaming-pro">
+<div class="gx-head"><span>🥓 BACON GAMING</span><h1>Gaming Control Center</h1><p>Performance tools, game shortcuts and visual effects.</p></div>
+<div class="gx-gamebar panel"><div><b id="gameModeTitle">Gaming Mode is OFF</b><small>Focus the browser for gaming.</small></div><button id="proGamingToggle" class="primary">🎮 Enable Gaming Mode</button></div>
+<div class="gx-metrics">
+
+
+
+
+</div>
+<div class="panel"><h2>🎮 Quick Launch</h2><div class="launch-grid">
+<button data-open-url="https://www.roblox.com">ROBLOX</button><button data-open-url="https://www.roblox.com/games">ROBLOX GAMES</button><button data-open-url="https://baconclan.pages.dev">BACON CLAN</button><button data-open-url="https://discord.com">DISCORD</button>
+</div></div>
+<div class="panel"><h2>⚡ Gaming Effects</h2><div class="effect-grid">
+<button id="effectBloom">✨ Bloom</button><button id="effectContrast">◐ High Contrast</button><button id="effectCool">❄️ Cool</button><button id="effectWarm">🔥 Warm</button><button id="effectReduce">🧊 Reduce Motion</button><button id="effectReset">↺ Reset</button>
+</div></div></section><section class="page" id="settings">
+  <div class="page-head"><div class="eyebrow">CONTROL CENTER</div><h2>Make it yours.</h2><p>The theme engine is now persistent and works across the entire browser.</p></div>
+  <div class="settings-grid">
+    <div class="panel"><h3>🎨 Themes</h3><div class="themes">
+      <button data-theme="crimson"><i></i><b>Crimson Bacon</b><small>Red / orange / gold</small></button>
+      <button data-theme="bloodmoon"><i></i><b>Bloodmoon</b><small>Dark red night</small></button>
+      <button data-theme="midnight"><i></i><b>Midnight Bacon</b><small>Blue night</small></button>
+      <button data-theme="neon"><i></i><b>Neon Bacon</b><small>Cyber glow</small></button>
+      <button data-theme="forest"><i></i><b>Forest Bacon</b><small>Emerald / lime</small></button>
+      <button data-theme="aqua"><i></i><b>Aqua Bacon</b><small>Cyan / ocean</small></button>
+      <button data-theme="gold"><i></i><b>Gold Bacon</b><small>Black / gold</small></button>
+      <button data-theme="blackout"><i></i><b>Blackout Crimson</b><small>Almost black</small></button><button data-theme="subzero"><i></i><b>Subzero</b><small>Ice blue / navy</small></button>
+<button data-theme="ultraviolet"><i></i><b>Ultraviolet</b><small>Purple / electric blue</small></button>
+<button data-theme="hotpink"><i></i><b>Hot Pink</b><small>Pink / crimson</small></button>
+<button data-theme="acid"><i></i><b>Acid</b><small>Lime / black</small></button>
+<button data-theme="arctic"><i></i><b>Arctic</b><small>Ice / cyan</small></button>
+<button data-theme="amber"><i></i><b>Amber</b><small>Orange / gold</small></button>
+    </div></div>
+    <div class="panel controls"><h3>⚡ Browser Controls</h3>
+      <label class="switch"><span>Turbo animations</span><input type="checkbox" id="turbo" checked><b></b></label>
+      <label class="switch"><span>Show performance</span><input type="checkbox" id="showStats" checked><b></b></label>
+      <label class="switch"><span>Compact sidebar</span><input type="checkbox" id="compact"><b></b></label>
+      <button class="secondary" id="reset">Reset browser settings</button>
+    </div>
+  </div>
+<div class="panel real-browser-settings"><h2>🌐 Browser Settings</h2>
+<div class="setting-row"><div><b>Startup page</b><small>Page opened on startup.</small></div><select id="settingStartup"><option value="home">Bacon New Tab</option><option value="games">Gaming Hub</option><option value="iframe">Web View</option></select></div>
+<div class="setting-row"><div><b>Search engine</b><small>Default engine for searches.</small></div><select id="settingSearch"><option value="google">Google</option><option value="bing">Bing</option><option value="duck">DuckDuckGo</option><option value="yahoo">Yahoo</option><option value="bacon">Bacon Search</option></select></div>
+<div class="setting-row"><div><b>Save history</b><small>Store browsing history locally.</small></div><input id="settingHistory" type="checkbox" checked></div>
+<div class="setting-row"><div><b>Compact sidebar</b><small>Use a smaller sidebar.</small></div><input id="settingSidebar" type="checkbox"></div>
+<div class="setting-row"><div><b>Reduce motion</b><small>Disable animated effects.</small></div><input id="settingMotion" type="checkbox"></div>
+<div class="setting-row"><div><b>Dark Web View</b><small>Dim the embedded web view.</small></div><input id="settingDark" type="checkbox"></div>
+<div class="setting-row"><div><b>Panel transparency</b><small>Control how much theme background shows through.</small></div><input id="settingTransparency" type="range" min="45" max="90" value="70"></div>
+<div class="setting-row"><div><b>Profile name</b><small>Local browser profile.</small></div><input id="settingProfile" placeholder="Bacon User"></div>
+<div class="setting-actions"><button class="primary" id="saveBrowserSettings">Save Settings</button><button class="secondary" id="resetBrowserSettings">Reset</button></div><div id="settingsSaved"></div>
+</div></section>
+
+<!-- Account Center -->
+<section class="page account-page" id="account">
+  <div class="page-head"><div class="eyebrow">BACON ID // ACCOUNT CENTER</div><h2 id="accountTitle">Create your Bacon ID.</h2><p>Sign in to keep your Bacon Browser profile, theme and browser preferences together on this device.</p></div>
+  <div class="account-grid">
+    <div class="panel account-card" id="accountLoggedOut">
+      <div class="account-avatar big" id="guestAvatar">?</div>
+      <h3>🥓 Welcome to Bacon Browser</h3>
+      <p class="muted">Make a local Bacon ID to personalize your browser.</p>
+      <div class="account-form">
+        <label>Username<input id="accountUsername" maxlength="20" placeholder="BaconPlayer"></label>
+        <label>Email <span>(optional)</span><input id="accountEmail" type="email" placeholder="you@example.com"></label>
+        <label>Password<input id="accountPassword" type="password" minlength="6" placeholder="At least 6 characters"></label>
+        <div class="account-actions"><button class="primary" id="createAccountBtn">Create Bacon ID</button><button class="secondary" id="loginAccountBtn">Log In</button></div>
+        <small id="accountFormStatus" class="account-status"></small>
+      </div>
+    </div>
+    <div class="panel account-card hidden" id="accountLoggedIn">
+      <div class="account-profile-head"><div class="account-avatar big" id="profileAvatar">B</div><div><div class="eyebrow">SIGNED IN</div><h3 id="profileName">Bacon User</h3><p id="profileEmail" class="muted">Local Bacon ID</p></div></div>
+      <div class="account-stats"><div><span>ACCOUNT</span><b id="profileSince">Today</b></div><div><span>THEME</span><b id="profileTheme">Crimson Bacon</b></div><div><span>DEVICE</span><b>Local</b></div></div>
+      <div class="account-form">
+        <label>Display name<input id="profileNameInput" maxlength="20"></label>
+        <label>Avatar color<input id="profileColor" type="color" value="#e42b1b"></label>
+        <button class="primary" id="saveProfileBtn">Save Profile</button>
+        <button class="secondary" id="logoutBtn">Log Out</button>
+        <button class="danger-btn" id="deleteAccountBtn">Delete Local Account</button>
+        <small id="profileStatus" class="account-status"></small>
+      </div>
+    </div>
+    <div class="panel account-card account-info">
+      <h3>🔐 About Bacon IDs</h3>
+      <div class="info-row"><b>What is saved?</b><span>Your username, hashed password, optional email, avatar color, theme and selected browser profile settings.</span></div>
+      <div class="info-row"><b>Where?</b><span>In this browser's local storage on this device.</span></div>
+      <div class="info-row"><b>Is it cloud synced?</b><span>Not yet. A future Supabase version can make accounts work across devices.</span></div>
+      <div class="warning-box">⚠️ This local account system is for the static Cloudflare build. Do not use a password here that you use for another important account.</div>
+    </div>
+  </div>
+</section>
+
+
+<section class="page bacon-os-page" id="ultimate">
+  <div class="os-shell">
+    <div class="os-hero">
+      <div>
+        <div class="eyebrow">🥓 BACON OS</div>
+        <h1>Bacon OS <span>Control Deck</span></h1>
+        <p>Your gaming browser command center. Launch tools, tune the browser, and manage your Bacon setup.</p>
+      </div>
+      <div class="os-status"><i></i> SYSTEM ONLINE</div>
+    </div>
+    <div class="os-grid">
+      <button class="os-card" data-os-action="web">
+        <b>🌐</b><h3>Web Studio</h3><p>Open the Bacon Web View and browse embedded sites.</p><span>OPEN →</span>
+      </button>
+      <button class="os-card" data-os-action="split">
+        <b>◫</b><h3>Split Screen</h3><p>Put two web views side-by-side in the browser.</p><span>OPEN →</span>
+      </button>
+      <button class="os-card" data-os-action="theme">
+        <b>🎨</b><h3>Theme Lab</h3><p>Customize accent, glow, glass and motion.</p><span>OPEN →</span>
+      </button>
+      <button class="os-card" data-os-action="workspace">
+        <b>🗂️</b><h3>Workspaces</h3><p>Save browser workspace presets locally.</p><span>OPEN →</span>
+      </button>
+      <button class="os-card" data-os-action="tools">
+        <b>🧮</b><h3>Quick Tools</h3><p>Calculator, timer and notes in one place.</p><span>OPEN →</span>
+      </button>
+      <button class="os-card" data-os-action="privacy">
+        <b>🛡️</b><h3>Privacy Center</h3><p>Clear local history, bookmarks and private session data.</p><span>OPEN →</span>
+      </button>
+      <button class="os-card" data-os-action="xp">
+        <b>⚡</b><h3>Bacon XP</h3><p>Track your local browser XP and achievements.</p><span>OPEN →</span>
+      </button>
+      <button class="os-card" data-os-action="assistant">
+        <b>🤖</b><h3>Bacon Assistant</h3><p>Use quick commands to jump around the browser.</p><span>OPEN →</span>
+      </button>
+    </div>
+    <div class="os-console">
+      <div><span class="live-dot"></span><b>BACON OS CONSOLE</b></div>
+      <p id="osConsoleText">Ready. Pick a module above.</p>
+    </div>
+    <div class="os-tools">
+      <button type="button" data-os-jump="iframe">🌐 Web View</button>
+      <button type="button" data-os-jump="gaming-pro">🎮 Gaming</button>
+      <button type="button" data-os-jump="music">🎵 Music</button>
+      <button type="button" data-os-jump="settings">⚙ Settings</button>
+      <button type="button" id="osSystemCheck">🩺 System Check</button>
+      <button type="button" id="osClearLocal">🧹 Clear Browser Data</button>
+    </div>
+  </div>
+</section>
+<section class="page bacon-arcade-page" id="arcade">
+  <div class="arcade-shell">
+    <div class="os-hero">
+      <div>
+        <div class="eyebrow">🎮 BACON ARCADE</div>
+        <h1>Game <span>Zone</span></h1>
+        <p>Three fully local mini-games. No server required.</p>
+      </div>
+      <div class="os-status"><i></i> 3 GAMES READY</div>
+    </div>
+    <div class="arcade-status-row">
+      <div class="arcade-stat"><span>DAILY CHALLENGE</span><b id="dailyChallenge">Click bacon 25 times</b><small id="dailyProgress">0 / 25</small></div>
+      <div class="arcade-stat"><span>LOCAL XP</span><b id="arcadeXp">0 XP</b><small>Earn XP by playing</small></div>
+      <div class="arcade-stat"><span>STREAK</span><b id="arcadeStreak">0 🔥</b><small>Daily local streak</small></div>
+    </div>
+    <div class="arcade-grid">
+      <article class="arcade-game-card">
+        <div class="game-badge">CLICKER</div><h3>🥓 Bacon Clicker</h3>
+        <p>Click the bacon and build your score. Your score survives refreshes.</p>
+        <button class="arcade-big" id="arcadeClick" type="button">🥓</button>
+        <strong id="arcadeClickScore">0</strong>
+      </article>
+      <article class="arcade-game-card">
+        <div class="game-badge">15 SECOND CHALLENGE</div><h3>🎯 Aim Trainer</h3>
+        <p>Hit the target as fast as you can before the timer runs out.</p>
+        <div id="aimArena"><button id="aimTarget" type="button">🎯</button></div>
+        <strong id="aimScore">Click the target to start</strong>
+      </article>
+      <article class="arcade-game-card">
+        <div class="game-badge">MEMORY</div><h3>🧠 Bacon Memory</h3><div class="memory-challenge-head"><b id="memoryChallengeName">Classic Bacon</b><button id="memoryNewChallenge" type="button">NEW CHALLENGE ↻</button></div>
+        <p>Match all six pairs. Find them all with as few mistakes as possible.</p>
+        <div id="memoryGrid"></div>
+        <strong id="memoryStatus">0 matches</strong>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="page fusion-dashboard" id="dashboard">
+  <div class="fusion-hero"><div><div class="eyebrow">BACON BROWSER // FUSION</div><h1>Your whole internet <span>inside Bacon.</span></h1><p>Launch real web destinations in Bacon Web View, jump between gaming tools, music, social apps and browser utilities.</p></div><div class="fusion-live"><i></i><b>LIVE SHELL</b><small id="fusionClock">--:--:--</small></div></div>
+  <div class="fusion-search"><span>⌕</span><input id="fusionSearch" placeholder="Search the web, paste a URL, or type a Bacon command…"><button id="fusionSearchBtn">GO</button></div>
+  <div class="fusion-grid">
+    <article class="fusion-card spotlight"><div class="card-kicker">WEB APPS</div><h2>🌐 Sites that open in Bacon</h2><p>These launch into the built-in Web View. If a site blocks embedding, Bacon gives you a one-click external fallback.</p><div class="site-grid"><button data-fusion-url="https://example.com">Example</button><button data-fusion-url="https://baconclan.pages.dev">Bacon Clan</button><button data-fusion-url="https://www.roblox.com">Roblox</button><button data-fusion-url="https://www.youtube.com">YouTube</button><button data-fusion-url="https://www.google.com">Google</button><button data-fusion-url="https://www.wikipedia.org">Wikipedia</button><button data-fusion-url="https://discord.com">Discord</button><button data-fusion-url="https://itch.io">itch.io</button></div></article>
+    <article class="fusion-card"><div class="card-kicker">LAUNCHPAD</div><h2>🚀 Gaming</h2><div class="launch-list"><button data-page="gaming-hub">🎮 Gaming Hub 2.0</button><button data-fusion-url="https://www.roblox.com/games">🕹 Roblox Games</button><button data-page="arcade">🧠 Bacon Arcade</button><button data-page="split-screen">🪟 Split Screen</button></div></article>
+    <article class="fusion-card"><div class="card-kicker">MEDIA</div><h2>🎵 Music 3.0</h2><p>Keep Bacon Beats running while you browse.</p><div class="launch-list"><button data-page="music-studio">🎧 Music Studio</button><button data-page="music">▶ Open Player</button><button id="fusionMiniPlay">⏯ Toggle Music</button></div><div class="mini-track" id="fusionTrack">Bacon Beats — Midnight Sizzle</div></article>
+    <article class="fusion-card"><div class="card-kicker">SYSTEM</div><h2>⚡ Browser status</h2><div class="system-tiles"><span>FPS <b id="fusionFps">--</b></span><span>XP <b id="fusionXp">0</b></span><span>TABS <b id="fusionTabs">1</b></span><span>THEME <b id="fusionTheme">Crimson</b></span></div><button class="primary" data-page="os-lab">OPEN BACON OS</button></article>
+  </div>
+</section>
+<section class="page" id="tab-islands"><div class="fusion-hero compact-hero"><div><div class="eyebrow">TAB ISLANDS // ORGANIZE THE CHAOS</div><h1>Tabs, but <span>actually organized.</span></h1><p>Create named groups, pin important tabs, and save the whole layout locally.</p></div><button class="primary" id="newIsland">＋ NEW ISLAND</button></div><div class="island-toolbar"><input id="islandName" placeholder="Island name e.g. Rivals Grind"><select id="islandColor"><option value="crimson">🥓 Crimson</option><option value="aqua">🌊 Aqua</option><option value="acid">🧪 Acid</option><option value="ultraviolet">🪩 Ultraviolet</option></select><button id="saveIsland" class="secondary">SAVE ISLAND</button></div><div id="islandGrid" class="island-grid"></div></section>
+<section class="page" id="gaming-hub"><div class="fusion-hero compact-hero"><div><div class="eyebrow">GAMING HUB 2.0 // BACON BOOST</div><h1>Game mode <span>activated.</span></h1><p>Launch games, control browser performance effects and manage gaming shortcuts.</p></div><button id="fusionGamingMode" class="primary">🎮 GAMING MODE</button></div><div class="fusion-card"><div class="card-kicker">GAME LAUNCHER</div><h2>🎮 One-click launches</h2><div class="site-grid big-sites"><button data-fusion-url="https://www.roblox.com">ROBLOX</button><button data-fusion-url="https://www.roblox.com/games">ROBLOX GAMES</button><button data-fusion-url="https://baconclan.pages.dev">BACON CLAN</button><button data-fusion-url="https://discord.com">DISCORD</button><button data-fusion-url="https://www.youtube.com">YOUTUBE</button><button data-page="arcade">BACON ARCADE</button></div></div><div class="fusion-card"><div class="card-kicker">BOOSTS</div><h2>✨ Visual game boosts</h2><div class="boost-grid"><button data-v8-effect="shader-bloom">Bloom</button><button data-v8-effect="shader-contrast">High Contrast</button><button data-v8-effect="shader-cool">Cool</button><button data-v8-effect="shader-warm">Warm</button><button data-v8-effect="reduce-motion">Low Motion</button><button id="hubResetFx">Reset Effects</button></div></div></section>
+<section class="page" id="music-studio"><div class="fusion-hero compact-hero"><div><div class="eyebrow">MUSIC 3.0 // BACON BEATS</div><h1>Make the browser <span>sound alive.</span></h1><p>Control the built-in player, load local audio, save favorites and keep playback visible while you browse.</p></div><div class="music-orb" id="musicOrb">🥓</div></div><div class="music-studio-grid"><div class="fusion-card"><div class="card-kicker">PLAYER</div><h2 id="studioTrack">Bacon Beats — Midnight Sizzle</h2><div class="studio-progress"><i id="studioProgress"></i></div><div class="studio-controls"><button id="studioPrev">⏮</button><button class="primary" id="studioPlay">▶ PLAY</button><button id="studioNext">⏭</button><button id="studioShuffle">🔀 SHUFFLE</button><button id="studioRepeat">🔁 REPEAT: OFF</button></div><label class="range-row">🔊 Volume <input id="studioVolume" type="range" min="0" max="1" step=".01" value=".7"></label><button class="secondary" id="studioUpload">📁 LOAD LOCAL AUDIO</button><input id="studioFile" type="file" accept="audio/*" hidden><div id="studioStatus" class="live-note">Ready.</div></div><div class="fusion-card"><div class="card-kicker">PLAYLIST</div><h2>🔥 Bacon Rotation</h2><div id="studioPlaylist" class="playlist-v8"></div></div></div></section>
+<section class="page" id="toolbox"><div class="fusion-hero compact-hero"><div><div class="eyebrow">BACON TOOLBOX // SIDEKICK</div><h1>Useful stuff, <span>zero downloads.</span></h1><p>Calculator, timer, notes, color lab and quick utilities.</p></div></div><div class="toolbox-grid-v8"><div class="fusion-card"><h2>🧮 Calculator</h2><input id="v8Calc" placeholder="(25*4)+10"><button id="v8CalcBtn">CALCULATE</button><output id="v8CalcOut">—</output></div><div class="fusion-card"><h2>⏱ Timer</h2><input id="v8Timer" type="number" min="1" value="60"><button id="v8TimerBtn">START</button><output id="v8TimerOut">Ready</output></div><div class="fusion-card"><h2>📝 Notes</h2><textarea id="v8Notes" placeholder="Saved on this device..."></textarea><button id="v8NotesSave">SAVE NOTES</button></div><div class="fusion-card"><h2>🎨 Color Lab</h2><input id="v8Color" type="color" value="#ff3b1f"><div class="color-preview-v8" id="v8ColorPreview">BACON</div><button id="v8ColorApply">USE COLOR</button></div></div></section>
+<section class="page" id="privacy-center"><div class="fusion-hero compact-hero"><div><div class="eyebrow">PRIVACY CENTER // LOCAL CONTROL</div><h1>See what Bacon <span>stores.</span></h1><p>Local-only storage controls for this static browser shell. Website security policies still apply.</p></div></div><div class="privacy-v8-grid"><div class="fusion-card"><h2>📦 Local storage</h2><div id="privacyStats"></div></div><div class="fusion-card"><h2>🧹 Cleanup</h2><div class="launch-list"><button id="privacyClearHistory">Clear History</button><button id="privacyClearBookmarks">Clear Bookmarks</button><button id="privacyClearApp">Clear Bacon Browser Data</button><button id="privacyPrivate">Private Session: OFF</button></div></div><div class="fusion-card"><h2>🛡️ Web protections</h2><p>Embedded sites can block iframes using X-Frame-Options or CSP. Bacon cannot bypass those policies in a static build.</p><button data-page="iframe">OPEN WEB VIEW</button></div></div></section>
+<section class="page" id="achievements"><div class="fusion-hero compact-hero"><div><div class="eyebrow">BACON XP // ACHIEVEMENTS</div><h1>Turn browsing into <span>progress.</span></h1><p>Local XP, levels, streaks and milestones.</p></div><div class="level-badge-v8" id="v8LevelBadge">LEVEL 1</div></div><div class="xp-hero-v8"><div><b id="v8XpTotal">0 XP</b><small id="v8XpNext">100 XP to next level</small></div><div class="xp-track-v8"><i id="v8XpBar"></i></div></div><div id="achievementGridV8" class="achievement-grid-v8"></div></section>
+<section class="page" id="mods"><div class="fusion-hero compact-hero"><div><div class="eyebrow">MODS // BACON LAB</div><h1>Install a <span>browser vibe.</span></h1><p>Local visual and audio toggles for the shell.</p></div></div><div class="mods-grid-v8"><button data-v8-mod="bacon-particles">🥓 Bacon Particles</button><button data-v8-mod="live-bg">🌌 Live Background</button><button data-v8-mod="bacon-cursor">🖱 Bacon Cursor</button><button data-v8-mod="reduce-motion">🧊 Low Effects</button><button data-v8-mod="force-dark-frame">🌙 Dark Web Frame</button><button id="v8SoundMod">⌨️ UI Sounds</button></div><div class="fusion-card mod-preview-v8" id="modPreviewV8"><span>LIVE PREVIEW</span><b>BACON OVERDRIVE</b></div></section>
+<section class="page" id="social"><div class="fusion-hero compact-hero"><div><div class="eyebrow">SOCIAL // QUICK LINKS</div><h1>Your squad <span>hub.</span></h1><p>Jump into Discord, YouTube, Roblox and Bacon Clan through Web View or the external fallback.</p></div></div><div class="social-grid-v8"><button data-fusion-url="https://discord.com">💬 Discord</button><button data-fusion-url="https://www.youtube.com">▶ YouTube</button><button data-fusion-url="https://www.roblox.com">🎮 Roblox</button><button data-fusion-url="https://baconclan.pages.dev">🥓 Bacon Clan</button></div></section>
+<section class="page" id="split-screen"><div class="fusion-hero compact-hero"><div><div class="eyebrow">SPLIT SCREEN 2.0</div><h1>Two worlds. <span>One Bacon.</span></h1><p>Run two independent embedded views side-by-side.</p></div></div><div class="split-v8-controls"><input id="v8SplitLeftUrl" value="https://example.com"><input id="v8SplitRightUrl" value="https://baconclan.pages.dev"><button id="v8SplitLoad" class="primary">OPEN SPLIT</button><button id="v8SplitExternal">OPEN EXTERNALLY</button></div><div class="split-v8" id="v8Split"><iframe id="v8Left" src="about:blank" title="Left web view"></iframe><iframe id="v8Right" src="about:blank" title="Right web view"></iframe></div></section>
+
+<section class="page" id="power-deck">
+  <div class="fusion-hero compact-hero"><div><div class="eyebrow">POWER DECK // BROWSER CORE</div><h1>More browser. <span>Less pretending.</span></h1><p>Extensions, downloads, permissions, tab groups and developer tools — all local and actually interactive.</p></div><div class="power-orb">⚡</div></div>
+  <div class="power-grid">
+    <div class="fusion-card"><div class="card-kicker">🧩 EXTENSIONS</div><h2>Extension Manager</h2><div id="extensionList" class="extension-list"></div><div class="extension-install"><input id="extensionName" placeholder="New extension name"><button id="installExtension">INSTALL</button></div></div>
+    <div class="fusion-card"><div class="card-kicker">📥 DOWNLOADS</div><h2>Download Center</h2><div id="downloadList" class="download-list"></div><div class="download-actions"><button id="clearDownloads">CLEAR</button></div></div>
+    <div class="fusion-card"><div class="card-kicker">🗂 TAB GROUPS</div><h2>Tab Islands</h2><div class="tab-group-maker"><input id="groupName" placeholder="Group name"><input id="groupColor" type="color" value="#ff3b1f"><button id="createGroup">CREATE</button></div><div id="groupList" class="group-list"></div></div>
+    <div class="fusion-card"><div class="card-kicker">🔐 SITE PERMISSIONS</div><h2>Permission Center</h2><div id="permissionList" class="permission-list"></div><button id="resetPermissions">RESET PERMISSIONS</button></div>
+    <div class="fusion-card devtools-card"><div class="card-kicker">🛠 DEVTOOLS</div><h2>Browser Diagnostics</h2><div class="dev-tabs"><button data-devtab="storage">Storage</button><button data-devtab="tabs">Tabs</button><button data-devtab="browser">Browser</button></div><div id="devOutput" class="dev-output"></div></div>
+    <div class="fusion-card"><div class="card-kicker">🛡 BROWSER SAFETY</div><h2>Privacy & Permissions</h2><p class="muted">Manage Bacon Browser local privacy settings. Real website permissions remain controlled by your browser.</p><button data-page="privacy-center">OPEN PRIVACY CENTER</button></div>
+  </div>
+</section>
+<section class="page" id="os-lab"><div class="fusion-hero compact-hero"><div><div class="eyebrow">BACON OS</div><h1>Everything in <span>one deck.</span></h1><p>Launch every major browser module without hunting through menus.</p></div></div><div class="os-launch-grid-v8"><button data-page="dashboard">🏠 Fusion Home</button><button data-page="tab-islands">🗂 Tab Islands</button><button data-page="gaming-hub">🎮 Gaming Hub</button><button data-page="music-studio">🎵 Music Studio</button><button data-page="toolbox">🧰 Toolbox</button><button data-page="privacy-center">🛡 Privacy</button><button data-page="achievements">🏆 Achievements</button><button data-page="mods">🧩 Mods</button><button data-page="social">💬 Social</button><button data-page="settings">⚙ Settings</button></div></section>
+<section class="page" id="assistant-v8"><div class="fusion-hero compact-hero"><div><div class="eyebrow">BACON ASSISTANT 2.0 // LOCAL</div><h1>Tell Bacon <span>what to do.</span></h1><p>Local browser commands — no API key required.</p></div></div><div class="assistant-v8"><input id="v8AssistantInput" placeholder="open roblox, go gaming, theme neon, split screen…"><button class="primary" id="v8AssistantRun">RUN COMMAND</button><div id="v8AssistantOutput">Ready.</div><div class="assistant-chips-v8"><button data-ai="gaming">🎮 Gaming</button><button data-ai="music">🎵 Music</button><button data-ai="roblox">🕹 Roblox</button><button data-ai="clan">🥓 Bacon Clan</button><button data-ai="arcade">🧠 Arcade</button><button data-ai="settings">⚙ Settings</button></div></div></section>
+</main>
+</div>
+<div class="command-palette" id="commandPalette" aria-hidden="true">
+  <div class="command-backdrop" id="commandBackdrop"></div>
+  <div class="command-box">
+    <div class="command-head"><b>🥓 BACON COMMAND</b><button id="commandClose" type="button">×</button></div>
+    <input id="commandInput" placeholder="Type a command… e.g. arcade, os, music, roblox">
+    <div id="commandResults"></div>
+    <small>Ctrl + K to open • Esc to close</small>
+  </div>
+</div>
+<footer>🥓 BACON BROWSER GX <span>•</span> <a href="https://baconclan.pages.dev" target="_blank" rel="noopener">BACON CLAN</a><span>•</span> READY TO BROWSE</footer>
+
+
+<audio id="userAudio" preload="metadata"></audio>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "name": "bacon-browser",
+  "version": "11.0.0",
+  "description": "Bacon Browser desktop app",
+  "main": "main.cjs",
+  "author": "Bacon Clan",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win portable nsis"
+  },
+  "devDependencies": {
+    "electron": "^38.1.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.baconclan.baconbrowser",
+    "productName": "Bacon Browser",
+    "files": [
+      "index.html",
+      "main.cjs",
+      "css/**/*",
+      "js/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
