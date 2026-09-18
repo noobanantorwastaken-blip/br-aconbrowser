@@ -1,11 +1,7 @@
-```yaml
 name: Build Bacon Browser for Windows
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   build-windows:
@@ -19,7 +15,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -33,4 +28,3 @@ jobs:
           name: Bacon-Browser-Windows
           path: dist/*
           if-no-files-found: error
-```
