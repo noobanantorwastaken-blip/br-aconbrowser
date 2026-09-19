@@ -1962,3 +1962,122 @@ if(BACON_DESKTOP && frame){
     initCommandKeyboard();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — NAVIGATION BRIDGE
+   Uses the existing Bacon Browser navigation system.
+   ========================================================= */
+
+(function () {
+  function getCurrentFrame() {
+    return (
+      document.querySelector("#webFrame") ||
+      document.querySelector("#desktopWebFrame")
+    );
+  }
+
+  function reloadCurrentPage() {
+    const frame = getCurrentFrame();
+
+    if (!frame) return;
+
+    try {
+      frame.reload();
+    } catch {
+      if (frame.src) {
+        const current = frame.src;
+        frame.src = "";
+        frame.src = current;
+      }
+    }
+
+    const status = document.querySelector("#status");
+
+    if (status) {
+      status.textContent = "🔄 Reloading page...";
+    }
+  }
+
+  function goBack() {
+    const frame = getCurrentFrame();
+
+    if (!frame) return;
+
+    try {
+      if (typeof frame.goBack === "function") {
+        frame.goBack();
+      } else if (frame.contentWindow) {
+        frame.contentWindow.history.back();
+      }
+
+      const status = document.querySelector("#status");
+
+      if (status) {
+        status.textContent = "← Going back";
+      }
+    } catch {
+      console.warn("Bacon Browser: Back navigation unavailable.");
+    }
+  }
+
+  function goForward() {
+    const frame = getCurrentFrame();
+
+    if (!frame) return;
+
+    try {
+      if (typeof frame.goForward === "function") {
+        frame.goForward();
+      } else if (frame.contentWindow) {
+        frame.contentWindow.history.forward();
+      }
+
+      const status = document.querySelector("#status");
+
+      if (status) {
+        status.textContent = "→ Going forward";
+      }
+    } catch {
+      console.warn("Bacon Browser: Forward navigation unavailable.");
+    }
+  }
+
+  function initNavigationBridge() {
+    const back =
+      document.querySelector("#back") ||
+      document.querySelector("#backBtn");
+
+    const forward =
+      document.querySelector("#forward") ||
+      document.querySelector("#forwardBtn");
+
+    const reload =
+      document.querySelector("#reload") ||
+      document.querySelector("#reloadBtn");
+
+    if (back) {
+      back.addEventListener("click", goBack);
+    }
+
+    if (forward) {
+      forward.addEventListener("click", goForward);
+    }
+
+    if (reload) {
+      reload.addEventListener("click", reloadCurrentPage);
+    }
+
+    window.baconBrowserBack = goBack;
+    window.baconBrowserForward = goForward;
+    window.baconBrowserReload = reloadCurrentPage;
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initNavigationBridge
+    );
+  } else {
+    initNavigationBridge();
+  }
+})();
