@@ -1138,3 +1138,66 @@ if(BACON_DESKTOP && frame){
     initV12Search();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — GAMING HUB
+   ========================================================= */
+
+(function () {
+  function openGamingHub() {
+    const gamingHub = document.querySelector("#gaming-hub");
+
+    if (!gamingHub) {
+      console.warn("Bacon Browser: Gaming Hub not found.");
+      return;
+    }
+
+    // Hide every page
+    document.querySelectorAll(".page").forEach(function (page) {
+      page.classList.remove("active");
+    });
+
+    // Show Gaming Hub
+    gamingHub.classList.add("active");
+
+    // Update navigation buttons if the browser uses them
+    document.querySelectorAll("[data-page]").forEach(function (button) {
+      button.classList.remove("active");
+    });
+
+    document
+      .querySelectorAll('[data-page="gaming-hub"]')
+      .forEach(function (button) {
+        button.classList.add("active");
+      });
+
+    // Update status text
+    const status = document.querySelector("#status");
+
+    if (status) {
+      status.textContent = "Gaming Hub ready";
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  function initV12GamingHub() {
+    document
+      .querySelectorAll('[data-page="gaming-hub"]')
+      .forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          event.preventDefault();
+          openGamingHub();
+        });
+      });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initV12GamingHub);
+  } else {
+    initV12GamingHub();
+  }
+})();
