@@ -1663,3 +1663,196 @@ if(BACON_DESKTOP && frame){
     initSettingEffects();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — COMMAND PALETTE
+   ========================================================= */
+
+(function () {
+  const commands = [
+    { name: "Home", page: "home", icon: "🏠" },
+    { name: "Gaming Hub", page: "gaming-hub", icon: "🎮" },
+    { name: "Music Studio", page: "music-studio", icon: "🎵" },
+    { name: "Power Deck", page: "power-deck", icon: "⚡" },
+    { name: "Privacy Center", page: "privacy-center", icon: "🛡️" },
+    { name: "Bacon OS", page: "os-lab", icon: "🥓" },
+    { name: "Settings", page: "settings", icon: "⚙️" },
+    { name: "Roblox", url: "https://www.roblox.com", icon: "🎮" },
+    { name: "YouTube", url: "https://www.youtube.com", icon: "▶️" },
+    { name: "Discord", url: "https://discord.com", icon: "💬" },
+    { name: "Bacon Clan", url: "https://baconclan.pages.dev", icon: "🥓" }
+  ];
+
+  function openPalette() {
+    const palette = document.querySelector("#commandPalette");
+    const input = document.querySelector("#commandInput");
+
+    if (!palette) return;
+
+    palette.classList.add("open");
+    palette.setAttribute("aria-hidden", "false");
+
+    renderCommands("");
+
+    if (input) {
+      input.value = "";
+      setTimeout(function () {
+        input.focus();
+      }, 30);
+    }
+  }
+
+  function closePalette() {
+    const palette = document.querySelector("#commandPalette");
+
+    if (!palette) return;
+
+    palette.classList.remove("open");
+    palette.setAttribute("aria-hidden", "true");
+  }
+
+  function runCommand(command) {
+    closePalette();
+
+    if (command.page) {
+      const button = document.querySelector(
+        '[data-page="' + command.page + '"]'
+      );
+
+      if (button) {
+        button.click();
+        return;
+      }
+
+      document.querySelectorAll(".page").forEach(function (page) {
+        page.classList.remove("active");
+      });
+
+      const page = document.querySelector(
+        "#" + command.page
+      );
+
+      if (page) page.classList.add("active");
+
+      return;
+    }
+
+    if (command.url) {
+      if (typeof window.baconLoadUrl === "function") {
+        window.baconLoadUrl(command.url);
+      } else if (typeof window.loadFrame === "function") {
+        window.loadFrame(command.url);
+      } else {
+        window.open(command.url, "_blank");
+      }
+    }
+  }
+
+  function renderCommands(search) {
+    const results =
+      document.querySelector("#commandResults");
+
+    if (!results) return;
+
+    const query = search.toLowerCase().trim();
+
+    const filtered = commands.filter(function (command) {
+      return command.name.toLowerCase().includes(query);
+    });
+
+    results.innerHTML = "";
+
+    filtered.forEach(function (command) {
+      const button = document.createElement("button");
+
+      button.className = "command-result";
+
+      button.innerHTML =
+        "<span>" +
+        command.icon +
+        "</span>" +
+        "<b>" +
+        command.name +
+        "</b>" +
+        "<small>" +
+        (command.page ? "OPEN PAGE" : "OPEN WEBSITE") +
+        "</small>";
+
+      button.addEventListener("click", function () {
+        runCommand(command);
+      });
+
+      results.appendChild(button);
+    });
+
+    if (!filtered.length) {
+      results.innerHTML =
+        '<div class="command-empty">No Bacon command found.</div>';
+    }
+  }
+
+  function initCommandPalette() {
+    const input =
+      document.querySelector("#commandInput");
+
+    const close =
+      document.querySelector("#commandClose");
+
+    const backdrop =
+      document.querySelector("#commandBackdrop");
+
+    if (input) {
+      input.addEventListener("input", function () {
+        renderCommands(input.value);
+      });
+
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closePalette();
+        }
+      });
+    }
+
+    if (close) {
+      close.addEventListener("click", closePalette);
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener("click", closePalette);
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        event.key.toLowerCase() === "k"
+      ) {
+        event.preventDefault();
+
+        const palette =
+          document.querySelector("#commandPalette");
+
+        if (
+          palette &&
+          palette.classList.contains("open")
+        ) {
+          closePalette();
+        } else {
+          openPalette();
+        }
+      }
+
+      if (event.key === "Escape") {
+        closePalette();
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initCommandPalette
+    );
+  } else {
+    initCommandPalette();
+  }
+})();
