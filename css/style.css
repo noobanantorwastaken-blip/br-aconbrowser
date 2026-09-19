@@ -1303,3 +1303,36 @@ body[data-theme="amber"]{--bg:#100a02;--panel:#211506;--panel2:#30200a;--line:#7
     padding: 30px 20px 50px;
   }
 }
+
+/* =========================================================
+   BACON BROWSER V12 — GAMING MODE EFFECT
+   ========================================================= */
+
+body.gaming-mode .v12-glow,
+body.gaming-mode .v12-card,
+body.gaming-mode .game-card,
+body.gaming-mode .gaming-card {
+  animation: none !important;
+}
+
+body.gaming-mode {
+  --gaming-active: 1;
+}
+
+body.gaming-mode::after {
+  content: "⚡ GAMING MODE";
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 99999;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 130, 70, .35);
+  background: rgba(20, 8, 8, .88);
+  color: #ff9b62;
+  font-size: 11px;
+  font-weight: 1000;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .35);
+  pointer-events: none;
+}
