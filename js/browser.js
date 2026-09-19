@@ -1856,3 +1856,109 @@ if(BACON_DESKTOP && frame){
     initCommandPalette();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — COMMAND KEYBOARD NAVIGATION
+   ========================================================= */
+
+(function () {
+  let selectedIndex = 0;
+
+  function getResults() {
+    return Array.from(
+      document.querySelectorAll(".command-result")
+    );
+  }
+
+  function updateSelection() {
+    const results = getResults();
+
+    results.forEach(function (button, index) {
+      button.classList.toggle(
+        "selected",
+        index === selectedIndex
+      );
+    });
+
+    if (results[selectedIndex]) {
+      results[selectedIndex].scrollIntoView({
+        block: "nearest"
+      });
+    }
+  }
+
+  function resetSelection() {
+    selectedIndex = 0;
+    updateSelection();
+  }
+
+  function initCommandKeyboard() {
+    const input =
+      document.querySelector("#commandInput");
+
+    if (!input) return;
+
+    input.addEventListener("input", function () {
+      resetSelection();
+    });
+
+    input.addEventListener("keydown", function (event) {
+      const results = getResults();
+
+      if (!results.length) return;
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+
+        selectedIndex =
+          (selectedIndex + 1) % results.length;
+
+        updateSelection();
+      }
+
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+
+        selectedIndex =
+          (selectedIndex - 1 + results.length) %
+          results.length;
+
+        updateSelection();
+      }
+
+      if (event.key === "Enter") {
+        event.preventDefault();
+
+        if (results[selectedIndex]) {
+          results[selectedIndex].click();
+        }
+      }
+    });
+
+    const observer = new MutationObserver(function () {
+      if (selectedIndex >= getResults().length) {
+        selectedIndex = 0;
+      }
+
+      updateSelection();
+    });
+
+    const container =
+      document.querySelector("#commandResults");
+
+    if (container) {
+      observer.observe(container, {
+        childList: true
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initCommandKeyboard
+    );
+  } else {
+    initCommandKeyboard();
+  }
+})();
