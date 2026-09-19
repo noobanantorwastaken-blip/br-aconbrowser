@@ -1464,3 +1464,123 @@ if(BACON_DESKTOP && frame){
     initThemeEngine();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — SETTINGS PERSISTENCE
+   ========================================================= */
+
+(function () {
+  const SETTINGS_KEY = "baconBrowserSettings";
+
+  function saveSettings() {
+    const settings = {
+      turbo: document.querySelector("#turbo")?.checked ?? true,
+      showStats: document.querySelector("#showStats")?.checked ?? true,
+      compact: document.querySelector("#compact")?.checked ?? false,
+      startup: document.querySelector("#settingStartup")?.value ?? "home",
+      search: document.querySelector("#settingSearch")?.value ?? "google",
+      history: document.querySelector("#settingHistory")?.checked ?? true,
+      sidebar: document.querySelector("#settingSidebar")?.checked ?? false,
+      motion: document.querySelector("#settingMotion")?.checked ?? false,
+      dark: document.querySelector("#settingDark")?.checked ?? false,
+      transparency:
+        document.querySelector("#settingTransparency")?.value ?? 70,
+      profile:
+        document.querySelector("#settingProfile")?.value ?? "Bacon User"
+    };
+
+    localStorage.setItem(
+      SETTINGS_KEY,
+      JSON.stringify(settings)
+    );
+
+    const saved = document.querySelector("#settingsSaved");
+
+    if (saved) {
+      saved.textContent = "✓ Settings saved";
+      setTimeout(function () {
+        saved.textContent = "";
+      }, 2000);
+    }
+  }
+
+  function loadSettings() {
+    const raw = localStorage.getItem(SETTINGS_KEY);
+
+    if (!raw) return;
+
+    let settings;
+
+    try {
+      settings = JSON.parse(raw);
+    } catch {
+      return;
+    }
+
+    const setChecked = function (id, value) {
+      const element = document.querySelector(id);
+      if (element) element.checked = !!value;
+    };
+
+    const setValue = function (id, value) {
+      const element = document.querySelector(id);
+      if (element && value !== undefined) {
+        element.value = value;
+      }
+    };
+
+    setChecked("#turbo", settings.turbo);
+    setChecked("#showStats", settings.showStats);
+    setChecked("#compact", settings.compact);
+
+    setValue("#settingStartup", settings.startup);
+    setValue("#settingSearch", settings.search);
+
+    setChecked("#settingHistory", settings.history);
+    setChecked("#settingSidebar", settings.sidebar);
+    setChecked("#settingMotion", settings.motion);
+    setChecked("#settingDark", settings.dark);
+
+    setValue("#settingTransparency", settings.transparency);
+    setValue("#settingProfile", settings.profile);
+  }
+
+  function resetSettings() {
+    localStorage.removeItem(SETTINGS_KEY);
+
+    location.reload();
+  }
+
+  function initSettingsPersistence() {
+    loadSettings();
+
+    const saveButton =
+      document.querySelector("#saveBrowserSettings");
+
+    if (saveButton) {
+      saveButton.addEventListener(
+        "click",
+        saveSettings
+      );
+    }
+
+    const resetButton =
+      document.querySelector("#resetBrowserSettings");
+
+    if (resetButton) {
+      resetButton.addEventListener(
+        "click",
+        resetSettings
+      );
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initSettingsPersistence
+    );
+  } else {
+    initSettingsPersistence();
+  }
+})();
