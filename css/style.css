@@ -2021,3 +2021,34 @@ body.dark-webview webview {
     display: none;
   }
 }
+
+/* =========================================================
+   BACON BROWSER V12 — COMMAND KEYBOARD SELECTION
+   ========================================================= */
+
+.command-result.selected {
+  border-color: rgba(255, 105, 65, 0.38);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 70, 45, 0.14),
+      rgba(255, 70, 45, 0.04)
+    );
+  box-shadow:
+    inset 3px 0 rgba(255, 110, 70, 0.8),
+    0 8px 25px rgba(0, 0, 0, 0.16);
+  transform: translateX(3px);
+}
+
+.command-result.selected > span {
+  background: rgba(255, 80, 50, 0.18);
+  box-shadow: 0 0 18px rgba(255, 70, 45, 0.12);
+}
+
+.command-result.selected b {
+  color: #fff;
+}
+
+.command-result.selected small {
+  color: rgba(255, 155, 110, 0.7);
+}
