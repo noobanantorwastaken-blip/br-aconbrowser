@@ -1522,3 +1522,47 @@ body.gaming-mode::after {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================================
+   BACON BROWSER V12 — POWER CORE STATES
+   ========================================================= */
+
+/* Visual Effects OFF */
+
+body.browser-effects-off *,
+body.browser-effects-off *::before,
+body.browser-effects-off *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+body.browser-effects-off .v12-glow {
+  display: none !important;
+}
+
+/* Sound OFF */
+
+body.browser-sound-off {
+  --bacon-browser-sound: 0;
+}
+
+/* Power Core OFF state */
+
+.v12-control.active {
+  border-color: rgba(255, 110, 70, 0.4);
+}
+
+.v12-control:not(.active) strong {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* Reset button */
+
+#v12ResetSettings {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+#v12ResetSettings:hover {
+  border-color: rgba(255, 80, 60, 0.35);
+}
