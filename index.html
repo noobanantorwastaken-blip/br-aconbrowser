@@ -75,17 +75,143 @@
 <div id="baconNotifications" class="bacon-notifications" aria-live="polite"></div>
 <main>
 <section class="page active" id="home">
-  <div class="hero">
-    <div class="eyebrow">BACON CLAN // BROWSER</div>
-    <h1>Browse.<br><span>Game.</span><br>Be Bacon.</h1>
-    <p>A ridiculously upgraded Bacon Browser shell with tabs, themes, bookmarks, history, gaming tools and a customizable control center.</p>
-    <div class="hero-actions"><a class="primary" href="https://baconclan.pages.dev" target="_blank" rel="noopener">OPEN BACON CLAN ↗</a></div>
-    <div class="status" id="status">● Systems ready</div>
+  <div class="v12-home">
+    <div class="v12-glow glow-one"></div>
+    <div class="v12-glow glow-two"></div>
+
+    <div class="v12-hero">
+      <div class="v12-badge">🥓 BACON BROWSER V12</div>
+
+      <h1>
+        Your web.
+        <span>Your rules.</span>
+      </h1>
+
+      <p>
+        A faster Bacon-powered browser built for gaming, browsing,
+        customization and pure chaos.
+      </p>
+
+      <div class="v12-actions">
+        <button class="primary" data-page="gaming-hub">🎮 GAMING HUB</button>
+        <button class="secondary" data-page="settings">🎨 CUSTOMIZE</button>
+        <a class="secondary" href="https://baconclan.pages.dev" target="_blank" rel="noopener">
+          🥓 BACON CLAN
+        </a>
+      </div>
+
+      <div class="v12-status">
+        <span class="status-dot"></span>
+        <span id="status">Systems ready</span>
+      </div>
+    </div>
+
+    <div class="v12-search-card">
+      <div class="v12-search-title">
+        <span>🔎</span>
+        <div>
+          <b>QUICK SEARCH</b>
+          <small>Search the web or enter a URL</small>
+        </div>
+      </div>
+
+      <form id="v12SearchForm" class="v12-search">
+        <input
+          id="v12Search"
+          type="text"
+          placeholder="Search Google or enter a web address..."
+          autocomplete="off"
+        />
+        <button type="submit">GO →</button>
+      </form>
+
+      <div class="v12-shortcuts">
+        <button data-fusion-url="https://www.google.com">Google</button>
+        <button data-fusion-url="https://www.youtube.com">YouTube</button>
+        <button data-fusion-url="https://www.roblox.com">Roblox</button>
+        <button data-fusion-url="https://discord.com">Discord</button>
+        <button data-fusion-url="https://baconclan.pages.dev">🥓 Bacon Clan</button>
+      </div>
+    </div>
+
+    <div class="v12-section-heading">
+      <div>
+        <span>QUICK ACCESS</span>
+        <small>Everything you need, one click away.</small>
+      </div>
+    </div>
+
+    <div class="v12-grid">
+      <button class="v12-card" data-page="gaming-hub">
+        <span class="v12-icon">🎮</span>
+        <b>Gaming Hub</b>
+        <small>Games, boosts and gaming tools</small>
+        <i>OPEN →</i>
+      </button>
+
+      <button class="v12-card" data-page="music-studio">
+        <span class="v12-icon">🎵</span>
+        <b>Music Studio</b>
+        <small>Control your Bacon Beats</small>
+        <i>OPEN →</i>
+      </button>
+
+      <button class="v12-card" data-page="settings">
+        <span class="v12-icon">🎨</span>
+        <b>Theme Lab</b>
+        <small>Customize your browser</small>
+        <i>OPEN →</i>
+      </button>
+
+      <button class="v12-card" data-page="power-deck">
+        <span class="v12-icon">⚡</span>
+        <b>Power Deck</b>
+        <small>Browser controls and tools</small>
+        <i>OPEN →</i>
+      </button>
+
+      <button class="v12-card" data-page="privacy-center">
+        <span class="v12-icon">🛡️</span>
+        <b>Privacy Center</b>
+        <small>Manage your local browser data</small>
+        <i>OPEN →</i>
+      </button>
+
+      <button class="v12-card" data-page="os-lab">
+        <span class="v12-icon">🥓</span>
+        <b>Bacon OS</b>
+        <small>Your entire browser command center</small>
+        <i>OPEN →</i>
+      </button>
+    </div>
+
+    <div class="v12-bottom">
+      <div class="v12-mini-card">
+        <span>🚀</span>
+        <div>
+          <b>READY TO BROWSE</b>
+          <small>Open a site from the address bar above.</small>
+        </div>
+      </div>
+
+      <div class="v12-mini-card">
+        <span>🎮</span>
+        <div>
+          <b>GAMING MODE</b>
+          <small>Jump into Gaming Hub whenever you're ready.</small>
+        </div>
+      </div>
+
+      <div class="v12-mini-card">
+        <span>✨</span>
+        <div>
+          <b>FULLY LOCAL</b>
+          <small>Your Bacon settings stay on this device.</small>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="section-title"><span>QUICK ACCESS</span><small>YOUR BROWSER, YOUR WAY</small></div>
-  <div class="cards">
-    <button class="feature" data-page="games"><em>🎮</em><b>Gaming Hub</b><small>Rivals • Roblox • tools</small></button>
-    <button class="feature" data-page="music"><em>🎵</em><b>Bacon Music</b><small>Player control center</small></button>
+</section>
     <button class="feature" data-page="settings"><em>🎨</em><b>Theme Lab</b><small>8 custom Bacon themes</small></button>
     <button class="feature" data-page="settings"><em>⚙️</em><b>Turbo Mode</b><small>Browser performance controls</small></button>
     <button class="feature" data-page="power-deck"><em>🧩</em><b>Power Deck</b><small>Extensions • downloads • DevTools</small></button>
