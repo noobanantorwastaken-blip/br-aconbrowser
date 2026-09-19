@@ -1410,3 +1410,57 @@ if(BACON_DESKTOP && frame){
     initPowerCore();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — THEME ENGINE 2.0
+   ========================================================= */
+
+(function () {
+  const THEME_KEY = "baconBrowserTheme";
+
+  function applyTheme(theme) {
+    if (!theme) theme = "crimson";
+
+    document.body.dataset.theme = theme;
+    localStorage.setItem(THEME_KEY, theme);
+
+    document.querySelectorAll("[data-theme]").forEach(function (button) {
+      button.classList.toggle(
+        "active",
+        button.dataset.theme === theme
+      );
+    });
+
+    const status = document.querySelector("#status");
+    if (status) {
+      status.textContent =
+        theme.charAt(0).toUpperCase() +
+        theme.slice(1) +
+        " theme enabled";
+    }
+  }
+
+  function initThemeEngine() {
+    const savedTheme =
+      localStorage.getItem(THEME_KEY) ||
+      document.body.dataset.theme ||
+      "crimson";
+
+    applyTheme(savedTheme);
+
+    document.querySelectorAll("[data-theme]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        applyTheme(button.dataset.theme);
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initThemeEngine
+    );
+  } else {
+    initThemeEngine();
+  }
+})();
