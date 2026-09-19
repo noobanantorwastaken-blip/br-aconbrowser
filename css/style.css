@@ -1782,3 +1782,71 @@ body.browser-sound-off {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================================
+   BACON BROWSER V12 — SETTINGS EFFECT VISUALS
+   ========================================================= */
+
+:root {
+  --panel-opacity: 0.7;
+}
+
+/* Turbo OFF */
+body.turbo-off *,
+body.turbo-off *::before,
+body.turbo-off *::after {
+  animation-duration: 0s !important;
+}
+
+/* Reduce Motion */
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Compact Sidebar */
+body.compact-sidebar .sidebar {
+  width: 72px !important;
+}
+
+body.compact-sidebar .sidebar span,
+body.compact-sidebar .sidebar small,
+body.compact-sidebar .sidebar .nav-label {
+  display: none !important;
+}
+
+/* Dark Web View */
+body.dark-webview #webFrame,
+body.dark-webview webview {
+  filter: brightness(0.72) contrast(1.08);
+}
+
+/* Panel Transparency */
+.panel,
+.fusion-card,
+.v12-power-core,
+.v12-search-card,
+.v12-mini-card,
+.v12-card {
+  --local-panel-opacity: var(--panel-opacity);
+
+  background-color: rgba(
+    10,
+    8,
+    14,
+    var(--local-panel-opacity)
+  );
+}
+
+/* Settings confirmation */
+#settingsSaved {
+  margin-top: 10px;
+  min-height: 18px;
+  color: #62ff93;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
