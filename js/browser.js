@@ -1054,3 +1054,87 @@ if(BACON_DESKTOP && frame){
   function setDevice(type){const f=q('#deviceFrame'),r=q('#deviceWidth');if(!f)return;f.classList.remove('phone-frame','tablet-frame','laptop-frame','desktop-frame');f.classList.add(type+'-frame');if(type==='phone')r.value=390;if(type==='tablet')r.value=768;if(type==='laptop')r.value=1100;if(type==='desktop')r.value=900;q('#deviceWidthValue').textContent=r.value+'px';f.style.width='';}
   document.addEventListener('DOMContentLoaded',()=>{bind();renderExtensions();renderDownloads();renderGroups();renderPerms();});
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — QUICK SEARCH
+   ========================================================= */
+
+(function () {
+  function v12NormalizeUrl(value) {
+    value = (value || "").trim();
+
+    if (!value) return "";
+
+    // Already a web URL
+    if (/^https?:\/\//i.test(value)) {
+      return value;
+    }
+
+    // Looks like a website
+    if (/^[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(value)) {
+      return "https://" + value;
+    }
+
+    // Otherwise search Google
+    return "https://www.google.com/search?q=" +
+      encodeURIComponent(value);
+  }
+
+  function v12Open(value) {
+    const url = v12NormalizeUrl(value);
+
+    if (!url) return;
+
+    // Use Bacon Browser's existing navigation system
+    if (typeof window.baconLoadUrl === "function") {
+      window.baconLoadUrl(url);
+      return;
+    }
+
+    // Fallback to the existing iframe
+    if (typeof window.loadFrame === "function") {
+      if (typeof window.showPage === "function") {
+        window.showPage("iframe");
+      }
+
+      window.loadFrame(url);
+      return;
+    }
+
+    const frame = document.querySelector("#webFrame");
+
+    if (frame) {
+      frame.src = url;
+      return;
+    }
+
+    // Final fallback
+    window.open(url, "_blank", "noopener");
+  }
+
+  function initV12Search() {
+    const form = document.querySelector("#v12SearchForm");
+    const input = document.querySelector("#v12Search");
+
+    if (form && input) {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        v12Open(input.value);
+      });
+    }
+
+    document
+      .querySelectorAll("[data-fusion-url]")
+      .forEach(function (button) {
+        button.addEventListener("click", function () {
+          v12Open(button.dataset.fusionUrl);
+        });
+      });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initV12Search);
+  } else {
+    initV12Search();
+  }
+})();
