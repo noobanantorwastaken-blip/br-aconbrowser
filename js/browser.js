@@ -1201,3 +1201,64 @@ if(BACON_DESKTOP && frame){
     initV12GamingHub();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — GAMING MODE
+   ========================================================= */
+
+(function () {
+  const STORAGE_KEY = "baconBrowserGamingMode";
+
+  function setGamingMode(enabled) {
+    document.body.classList.toggle("gaming-mode", enabled);
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      enabled ? "on" : "off"
+    );
+
+    document.querySelectorAll(
+      '[data-gaming-mode], #gamingMode, #gamingModeToggle'
+    ).forEach(function (button) {
+      button.classList.toggle("active", enabled);
+
+      if (button.tagName === "INPUT") {
+        button.checked = enabled;
+      }
+    });
+
+    const status = document.querySelector("#status");
+
+    if (status) {
+      status.textContent = enabled
+        ? "Gaming Mode enabled ⚡"
+        : "Systems ready";
+    }
+  }
+
+  function initGamingMode() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    setGamingMode(saved === "on");
+
+    document.querySelectorAll(
+      '[data-gaming-mode], #gamingMode, #gamingModeToggle'
+    ).forEach(function (button) {
+      button.addEventListener("click", function () {
+        const enabled =
+          !document.body.classList.contains("gaming-mode");
+
+        setGamingMode(enabled);
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initGamingMode
+    );
+  } else {
+    initGamingMode();
+  }
+})();
