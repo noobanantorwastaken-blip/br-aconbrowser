@@ -1584,3 +1584,82 @@ if(BACON_DESKTOP && frame){
     initSettingsPersistence();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — SETTINGS EFFECTS
+   ========================================================= */
+
+(function () {
+  function applySettingEffects() {
+    const settings = localStorage.getItem("baconBrowserSettings");
+
+    if (!settings) return;
+
+    let data;
+
+    try {
+      data = JSON.parse(settings);
+    } catch {
+      return;
+    }
+
+    document.body.classList.toggle(
+      "turbo-off",
+      data.turbo === false
+    );
+
+    document.body.classList.toggle(
+      "compact-sidebar",
+      data.compact === true || data.sidebar === true
+    );
+
+    document.body.classList.toggle(
+      "reduce-motion",
+      data.motion === true
+    );
+
+    document.body.classList.toggle(
+      "dark-webview",
+      data.dark === true
+    );
+
+    if (data.transparency !== undefined) {
+      document.documentElement.style.setProperty(
+        "--panel-opacity",
+        String(Number(data.transparency) / 100)
+      );
+    }
+
+    const stats = document.querySelector("#performanceStats");
+
+    if (stats) {
+      stats.style.display =
+        data.showStats === false ? "none" : "";
+    }
+  }
+
+  function initSettingEffects() {
+    applySettingEffects();
+
+    const saveButton =
+      document.querySelector("#saveBrowserSettings");
+
+    if (saveButton) {
+      saveButton.addEventListener(
+        "click",
+        function () {
+          setTimeout(applySettingEffects, 50);
+        }
+      );
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initSettingEffects
+    );
+  } else {
+    initSettingEffects();
+  }
+})();
