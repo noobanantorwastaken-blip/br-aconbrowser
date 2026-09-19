@@ -1262,3 +1262,151 @@ if(BACON_DESKTOP && frame){
     initGamingMode();
   }
 })();
+
+/* =========================================================
+   BACON BROWSER V12 — POWER CORE CONTROLS
+   ========================================================= */
+
+(function () {
+  const SOUND_KEY = "baconBrowserSound";
+  const EFFECTS_KEY = "baconBrowserEffects";
+
+  function getSaved(key, defaultValue) {
+    const saved = localStorage.getItem(key);
+
+    if (saved === null) {
+      return defaultValue;
+    }
+
+    return saved === "on";
+  }
+
+  function updateControl(button, enabled, onText, offText) {
+    if (!button) return;
+
+    button.classList.toggle("active", enabled);
+
+    const status = button.querySelector("strong");
+
+    if (status) {
+      status.textContent = enabled ? onText : offText;
+    }
+  }
+
+  function setSound(enabled) {
+    localStorage.setItem(
+      SOUND_KEY,
+      enabled ? "on" : "off"
+    );
+
+    document.body.classList.toggle(
+      "browser-sound-off",
+      !enabled
+    );
+
+    updateControl(
+      document.querySelector("#v12SoundToggle"),
+      enabled,
+      "ON",
+      "OFF"
+    );
+  }
+
+  function setEffects(enabled) {
+    localStorage.setItem(
+      EFFECTS_KEY,
+      enabled ? "on" : "off"
+    );
+
+    document.body.classList.toggle(
+      "browser-effects-off",
+      !enabled
+    );
+
+    updateControl(
+      document.querySelector("#v12EffectsToggle"),
+      enabled,
+      "ON",
+      "OFF"
+    );
+  }
+
+  function resetBrowserSettings() {
+    localStorage.removeItem("baconBrowserGamingMode");
+    localStorage.removeItem(SOUND_KEY);
+    localStorage.removeItem(EFFECTS_KEY);
+
+    document.body.classList.remove(
+      "gaming-mode",
+      "browser-sound-off",
+      "browser-effects-off"
+    );
+
+    setSound(true);
+    setEffects(true);
+
+    const status = document.querySelector("#status");
+
+    if (status) {
+      status.textContent = "Browser settings reset";
+    }
+
+    alert("🥓 Bacon Browser settings have been reset.");
+  }
+
+  function initPowerCore() {
+    const soundButton =
+      document.querySelector("#v12SoundToggle");
+
+    const effectsButton =
+      document.querySelector("#v12EffectsToggle");
+
+    const resetButton =
+      document.querySelector("#v12ResetSettings");
+
+    // Restore saved settings
+    setSound(getSaved(SOUND_KEY, true));
+    setEffects(getSaved(EFFECTS_KEY, true));
+
+    // Sound
+    if (soundButton) {
+      soundButton.addEventListener("click", function () {
+        const enabled =
+          !document.body.classList.contains(
+            "browser-sound-off"
+          );
+
+        setSound(!enabled);
+      });
+    }
+
+    // Visual effects
+    if (effectsButton) {
+      effectsButton.addEventListener("click", function () {
+        const enabled =
+          !document.body.classList.contains(
+            "browser-effects-off"
+          );
+
+        setEffects(!enabled);
+      });
+    }
+
+    // Reset
+    if (resetButton) {
+      resetButton.addEventListener(
+        "click",
+        resetBrowserSettings
+      );
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initPowerCore
+    );
+  } else {
+    initPowerCore();
+  }
+})();
