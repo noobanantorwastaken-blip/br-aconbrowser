@@ -493,6 +493,60 @@
 <section class="page" id="split-screen"><div class="fusion-hero compact-hero"><div><div class="eyebrow">SPLIT SCREEN 2.0</div><h1>Two worlds. <span>One Bacon.</span></h1><p>Run two independent embedded views side-by-side.</p></div></div><div class="split-v8-controls"><input id="v8SplitLeftUrl" value="https://example.com"><input id="v8SplitRightUrl" value="https://baconclan.pages.dev"><button id="v8SplitLoad" class="primary">OPEN SPLIT</button><button id="v8SplitExternal">OPEN EXTERNALLY</button></div><div class="split-v8" id="v8Split"><iframe id="v8Left" src="about:blank" title="Left web view"></iframe><iframe id="v8Right" src="about:blank" title="Right web view"></iframe></div></section>
 
 <section class="page" id="power-deck">
+  <div class="v12-power-core">
+  <div class="v12-power-heading">
+    <div>
+      <span>⚡ V12 CONTROL CORE</span>
+      <h2>Browser Command Center</h2>
+      <p>Quick controls for your Bacon Browser.</p>
+    </div>
+
+    <div class="v12-core-status">
+      <span></span>
+      ONLINE
+    </div>
+  </div>
+
+  <div class="v12-control-grid">
+
+    <button class="v12-control" data-gaming-mode>
+      <span class="v12-control-icon">🎮</span>
+      <div>
+        <b>Gaming Mode</b>
+        <small>Performance-focused browser mode</small>
+      </div>
+      <strong>OFF</strong>
+    </button>
+
+    <button class="v12-control" id="v12SoundToggle">
+      <span class="v12-control-icon">🔊</span>
+      <div>
+        <b>Browser Sound</b>
+        <small>Browser interface sounds</small>
+      </div>
+      <strong>ON</strong>
+    </button>
+
+    <button class="v12-control" id="v12EffectsToggle">
+      <span class="v12-control-icon">✨</span>
+      <div>
+        <b>Visual Effects</b>
+        <small>Animations and visual effects</small>
+      </div>
+      <strong>ON</strong>
+    </button>
+
+    <button class="v12-control" id="v12ResetSettings">
+      <span class="v12-control-icon">↻</span>
+      <div>
+        <b>Reset Browser</b>
+        <small>Reset local Bacon Browser settings</small>
+      </div>
+      <strong>RESET</strong>
+    </button>
+
+  </div>
+</div>
   <div class="fusion-hero compact-hero"><div><div class="eyebrow">POWER DECK // BROWSER CORE</div><h1>More browser. <span>Less pretending.</span></h1><p>Extensions, downloads, permissions, tab groups and developer tools — all local and actually interactive.</p></div><div class="power-orb">⚡</div></div>
   <div class="power-grid">
     <div class="fusion-card"><div class="card-kicker">🧩 EXTENSIONS</div><h2>Extension Manager</h2><div id="extensionList" class="extension-list"></div><div class="extension-install"><input id="extensionName" placeholder="New extension name"><button id="installExtension">INSTALL</button></div></div>
