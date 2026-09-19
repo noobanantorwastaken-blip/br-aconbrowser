@@ -1166,3 +1166,140 @@ body[data-theme="amber"]{--bg:#100a02;--panel:#211506;--panel2:#30200a;--line:#7
     width: 100%;
   }
 }
+
+/* =========================================================
+   BACON BROWSER V12 — GAMING HUB
+   ========================================================= */
+
+#gaming-hub {
+  position: relative;
+  min-height: calc(100vh - 120px);
+  padding: 42px 5vw 65px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(255, 55, 55, .13), transparent 30%),
+    radial-gradient(circle at 90% 75%, rgba(255, 150, 40, .10), transparent 32%);
+}
+
+#gaming-hub::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, .025) 1px,
+      transparent 1px
+    );
+  background-size: 38px 38px;
+  opacity: .25;
+}
+
+/* Hub header */
+
+#gaming-hub .page-header,
+#gaming-hub .section-header {
+  position: relative;
+  z-index: 1;
+}
+
+#gaming-hub h1,
+#gaming-hub h2 {
+  font-weight: 1000;
+  letter-spacing: -1px;
+}
+
+#gaming-hub h1 {
+  background: linear-gradient(90deg, #fff, #ff7950, #ffd05c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gaming cards */
+
+#gaming-hub .game-card,
+#gaming-hub .gaming-card,
+#gaming-hub .hub-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, .065),
+      rgba(255, 255, 255, .018)
+    );
+  box-shadow: 0 18px 45px rgba(0, 0, 0, .25);
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease;
+}
+
+#gaming-hub .game-card:hover,
+#gaming-hub .gaming-card:hover,
+#gaming-hub .hub-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 105, 70, .4);
+  box-shadow:
+    0 24px 55px rgba(0, 0, 0, .35),
+    0 0 35px rgba(255, 70, 50, .08);
+}
+
+/* Gaming buttons */
+
+#gaming-hub button {
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease;
+}
+
+#gaming-hub button:hover {
+  transform: translateY(-2px);
+}
+
+#gaming-hub button:active {
+  transform: translateY(0) scale(.97);
+}
+
+/* Gaming mode panels */
+
+#gaming-hub .gaming-mode,
+#gaming-hub .performance-panel,
+#gaming-hub .boost-panel {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, .07);
+  background: rgba(255, 255, 255, .035);
+  backdrop-filter: blur(14px);
+}
+
+/* Accent text */
+
+#gaming-hub .accent,
+#gaming-hub .highlight,
+#gaming-hub .gold {
+  background: linear-gradient(90deg, #ff5545, #ffb347);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Small status indicators */
+
+#gaming-hub .online,
+#gaming-hub .active,
+#gaming-hub .enabled {
+  text-shadow: 0 0 14px rgba(90, 255, 130, .35);
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+  #gaming-hub {
+    padding: 30px 20px 50px;
+  }
+}
