@@ -14,7 +14,6 @@
     "electron-builder": "^26.0.12"
   },
   "build": {
-    "publish": "never",
     "appId": "com.baconclan.baconbrowser",
     "productName": "Bacon Browser",
     "files": [
