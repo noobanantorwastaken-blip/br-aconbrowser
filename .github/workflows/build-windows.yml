@@ -1,4 +1,4 @@
-name: "Build Bacon Browser for Windows."
+name: "Build bacon browser for windows."
 
 on:
   workflow_dispatch:
